@@ -1,37 +1,16 @@
 ﻿@page "/counter"
-@using System.Net.Http
-@inject HttpClient Http
 
-<h1>Remonter valeur Woopsa</h1>
+<Heading Size="HeadingSize.Is1">Counter</Heading>
 
-Valeur du sinus: @currentValue
-<br />
-<Button Clicked="@(async () => await IncrementCount())">Click me</Button>
+<Paragraph>Current count: @currentCount</Paragraph>
 
-
+<Button Color="Color.Primary" Clicked="IncrementCount">Click me</Button>
 
 @code {
-    public class WoopsaObject
+    int currentCount = 0;
+
+    void IncrementCount()
     {
-        public double Value { get; set; }
-        public string Type { get; set; }
+        currentCount++;
     }
-    double currentValue = 0;
-    WoopsaObject response = new WoopsaObject();
-
-
-
-    private async Task IncrementCount()
-    {
-        //string responsestring = await Http.GetStringAsync("http://localhost:80/woopsa/read/Signal");
-        //Console.WriteLine(responsestring);
-        while (true)
-        {
-            response = await Http.GetJsonAsync<WoopsaObject>("http://localhost:80/woopsa/read/Signal");
-            currentValue = response.Value;
-            StateHasChanged();
-
-        }
-    }
-
 }
